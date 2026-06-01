@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>STEP 5 – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <style>
+    .sim-img {
+      width: 100%;
+      height: 390px;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+      transition: opacity 0.45s ease;
+    }
+    .nav-bar {
+      position: absolute;
+      bottom: 18px;
+      left: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    .btn-prev {
+      padding: 10px 18px;
+      background: #888;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .btn-prev:hover { background: #666; }
+    .click-hint {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      color: #1475e4;
+      font-weight: 600;
+      animation: blink 1.4s infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity:1 } 50% { opacity:0.2 }
+    }
+    .slide-counter {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="simulation-container">
+    <h2 class="title">Martindale Abrasion Test</h2>
+
+    <p class="instruction-text">
+      <span class="step-badge">STEP 5</span>
+      Place the 38 mm cutter on the leather swatch and rotate the wheel to cut the specimen disc.
+    </p>
+
+    <div class="img-area" id="clickZone" style="cursor:pointer;" title="Click to advance">
+            <img class="sim-img visible" id="state_0" src="../slides/slide_06_s00.png" alt="slide_06_s00.png" style="position:absolute;top:0;left:0;opacity:1;"/>
+      <img class="sim-img " id="state_1" src="../slides/slide_06_s01.png" alt="slide_06_s01.png" style="position:absolute;top:0;left:0;opacity:0;"/>
+
+    </div>
+
+    <div class="click-hint" id="hint">▶ Click slide to advance</div>
+    <div class="slide-counter" id="counter"></div>
+    <div class="obs-log" id="obsLog"></div>
+
+    <div class="nav-bar">
+      <button class="btn-prev" onclick="window.location.href='step5.html'">◀ Prev</button>
+    </div>
+    <button class="btn-next" onclick="window.location.href='step7.html'">Next ▶</button>
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.sim-img');
+    const obsEl  = document.getElementById('obsLog');
+    const nextBtn = document.querySelector('.btn-next');
+    const hint    = document.getElementById('hint');
+    const counter = document.getElementById('counter');
+    let current = 0;
+    const total = images.length;
+
+    function showSlide(idx) {
+      images.forEach((img, i) => {
+        if (i === idx) {
+          img.classList.add('visible');
+          img.style.opacity = '1';
+          img.style.pointerEvents = 'auto';
+        } else {
+          img.style.opacity = '0';
+          img.style.pointerEvents = 'none';
+          // Clean up class after transition
+          setTimeout(() => {
+            if (current !== i) img.classList.remove('visible');
+          }, 450);
+        }
+      });
+      counter.textContent = (idx + 1) + ' / ' + total;
+      obsEl.textContent = '→ Animation state ' + (idx + 1) + ' of ' + total + '.';
+      obsEl.classList.add('show');
+      if (idx === total - 1) {
+        hint.style.display = 'none';
+        if (nextBtn) nextBtn.classList.add('show');
+      } else {
+        hint.style.display = 'block';
+        if (nextBtn) nextBtn.classList.remove('show');
+      }
+    }
+
+    showSlide(0);
+    document.getElementById('clickZone').addEventListener('click', () => {
+      if (current < total - 1) { 
+        current++; 
+        showSlide(current); 
+      }
+    });
+  </script>
+</body>
+</html>
