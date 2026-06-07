@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 3: Cut Abradant Fabric"/>
-  <title>Step 3 – Cut Abradant Fabric – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 3: Cut Abrading Paper / Wool Abradant Fabric (140 mm)"/>
+  <title>Step 3 – Cut Abrading Paper – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
@@ -14,33 +14,44 @@
 
     <p class="instruction-text">
       <span class="step-badge">Step 3</span>
-      Place the 140 mm cutter on the Wool Abradant Fabric and press & rotate to cut an abrading disc.
+      Place the 140 mm diameter cutter on the <strong>wool abradant fabric / abrading paper</strong>
+      and press &amp; rotate the knob to cut a 140 mm disc.
+      Click the slide to see each action step.
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 3 Frame 1" src="../slides/slide_03_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>
-      <img alt="Step 3 Frame 2" src="../slides/slide_03_s01.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>
-      <img alt="Step 3 Frame 3" src="../slides/slide_03_s02.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>    </div>
+    <!--
+      Slide 3: Same structure as slide 2 but for abrading paper.
+      s00 = cutter placed on wool abradant fabric
+      s01 = pressing/rotating action
+      s02 = abrading paper disc of 140mm cut – full result
+      s03/s04 = next state
+    -->
+    <div class="img-area" id="clickZone" role="button" tabindex="0"
+         aria-label="Click or press Enter to advance animation frame">
+      <img src="../slides/slide_03_s00.png" alt="140mm cutter placed on wool abradant fabric" class="active"/>
+      <img src="../slides/slide_03_s01.png" alt="Pressing and rotating the knob on abrading paper"/>
+      <img src="../slides/slide_03_s02.png" alt="Abrading paper disc of 140mm diameter – final result"/>
+      <div class="click-hint">Click to reveal next action</div>
+    </div>
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
-
-    <button class="btn-prev" data-href="step2.html">◀ Prev</button>
-    <button class="btn-next" data-href="step4.html">Next ▶</button>
-
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="step2.html" id="btn-prev" aria-label="Previous: Step 2">◀ Back</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter">1 / 3</span>
+      <a class="btn-nav btn-next" href="step4.html" id="btn-next" aria-label="Next: Step 4">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
     new SimStep({
       container: '#clickZone',
-      prevPage:  'step2.html',
-      nextPage:  'step4.html',
+      prevPage: 'step2.html',
+      nextPage: 'step4.html',
+      mode: 'auto'
     });
-  })();
   </script>
 </body>
 </html>

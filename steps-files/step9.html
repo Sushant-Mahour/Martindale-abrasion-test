@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 9: Remove Weights"/>
-  <title>Step 9 – Remove Weights – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 9: Remove Auxiliary Weights & Top Plate"/>
+  <title>Step 9 – Remove Auxiliary Weights – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
@@ -14,32 +14,42 @@
 
     <p class="instruction-text">
       <span class="step-badge">Step 9</span>
-      Remove the auxiliary weights from the apparatus. Weights depend on buyer's demand: 9 kPa or 12 kPa.
+      Remove the <strong>auxiliary weights</strong> from the specimen holders.
+      Auxiliary weights depend on the buyer's demand — generally <strong>795 g</strong> is used.
+      Click the slide to reveal each action.
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 9 Frame 1" src="../slides/slide_09_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>
-      <img alt="Step 9 Frame 2" src="../slides/slide_09_s01.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>    </div>
+    <!--
+      Slide 9 (PPT Slide 9): Remove auxiliary weights & top plate
+      s00 = machine overview, initial state
+      s01 = auxiliary weights highlighted/removed
+      s02–s04 = next navigation states
+    -->
+    <div class="img-area" id="clickZone" role="button" tabindex="0"
+         aria-label="Click or press Enter to advance animation frame">
+      <img src="../slides/slide_09_s00.png" alt="Martindale apparatus – initial setup view" class="active"/>
+      <img src="../slides/slide_09_s01.png" alt="Remove auxiliary weights (795g) from specimen holders – complete"/>
+      <div class="click-hint">Click to reveal weight removal steps</div>
+    </div>
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
-
-    <button class="btn-prev" data-href="step8.html">◀ Prev</button>
-    <button class="btn-next" data-href="step10.html">Next ▶</button>
-
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="step8.html" id="btn-prev" aria-label="Previous: Step 8">◀ Back</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter">1 / 2</span>
+      <a class="btn-nav btn-next" href="step10.html" id="btn-next" aria-label="Next: Step 10">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
     new SimStep({
       container: '#clickZone',
-      prevPage:  'step8.html',
-      nextPage:  'step10.html',
+      prevPage: 'step8.html',
+      nextPage: 'step10.html',
+      mode: 'auto'
     });
-  })();
   </script>
 </body>
 </html>

@@ -3,10 +3,56 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 13: Mount onto Apparatus"/>
-  <title>Step 13 – Mount onto Apparatus – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 13: Load Specimen into Holder (Steps 1–6 + Final)"/>
+  <title>Step 13 – Load Specimen into Holder – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
+  <style>
+    /* ── Step 13 specific: interactive button overlay grid ── */
+    /* Buttons are positioned over the slide image matching PPT positions */
+    /* PPT had 8 interactive onClick sequences (interactiveSeq, Fade In 500ms) */
+
+    /* The click zone needs to be relative so buttons can overlap */
+    #clickZone { cursor: default; }
+
+    /* Individual step buttons — positioned as % of the img-area */
+    /* PPT slide was 13.33" x 7.5". Button positions converted to % */
+
+    #sBtn1  { left: 16%; top: 14%; width: 12%; height: 8%; }   /* Step 1 */
+    #sBtn2  { left: 40%; top: 14%; width: 12%; height: 8%; }   /* Step 2 */
+    #sBtn3  { left: 63%; top: 14%; width: 12%; height: 8%; }   /* Step 3 */
+    #sBtn4  { left: 88%; top: 14%; width: 12%; height: 8%; }   /* Step 4 */
+    #sBtn5  { left: 25%; top: 46%; width: 12%; height: 8%; }   /* Step 5 */
+    #sBtn6  { left: 57%; top: 46%; width: 12%; height: 8%; }   /* Step 6 */
+    #sBtnF  { left: 81%; top: 46%; width: 20%; height: 8%; }   /* Final Step Re-Assemble */
+    #sBtnBV { left: 64%; top: 74%; width: 18%; height: 8%; }   /* Bottom view of holder */
+
+    .step-btn-overlay {
+      position: absolute;
+      font-size: 11px;
+    }
+
+    /* Instruction callout that appears at top when a step is active */
+    #step-callout {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 60, 150, 0.88);
+      color: white;
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 14px;
+      pointer-events: none;
+      z-index: 25;
+      white-space: nowrap;
+      max-width: 90%;
+      text-align: center;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+    #step-callout.visible { opacity: 1; }
+  </style>
 </head>
 <body>
   <div class="simulation-container">
@@ -14,32 +60,126 @@
 
     <p class="instruction-text">
       <span class="step-badge">Step 13</span>
-      Mount the loaded specimen holders onto the Martindale Apparatus and set all required parameters.
+      Click each <strong>Step button</strong> on the slide to reveal that step's action
+      (Fade In, 500ms — exactly as in the original PPT onClick triggers).
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 13 Frame 1" src="../slides/slide_14_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>
-      <img alt="Step 13 Frame 2" src="../slides/slide_14_s01.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>    </div>
+    <!--
+      Slide 13 (PPT Slide 13): 8 interactiveSeq onClick triggers.
+      Each Step button click → Fade In the corresponding image layer.
+      Images are stacked; clicking a step button crossfades to that frame.
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
+      PPT Steps:
+      s00 = blank/base layout (all text labels visible, step images hidden)
+      s01 = Step 1 image fades in: Place sample grain-side down on abradant paper
+      s02 = Step 2 image fades in: Insert backing foam form
+      s03 = Step 3 image fades in: visual step
+      s04 = Step 4 image fades in: visual step
+      s05 = Step 5 image fades in: Push backing form + sample downward
+      s06 = Step 6 image fades in: visual step
+      s07 = Final Step image fades in: Re-Assemble holder
+      s08 = Bottom view of holder
+    -->
+    <div class="img-area" id="clickZone"
+         aria-label="Click a Step button to reveal that step's action">
 
-    <button class="btn-prev" data-href="step12.html">◀ Prev</button>
-    <button class="btn-next" data-href="step14.html">Next ▶</button>
+      <!-- Base image (always visible) -->
+      <img src="../slides/slide_13_s00.png"
+           alt="Specimen holder loading diagram – all step buttons visible, step images hidden"
+           class="active" style="opacity:1; z-index:1;"/>
 
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+      <!-- Step reveal images (start hidden, fade in on button click) -->
+      <img src="../slides/slide_13_s01.png"
+           alt="Step 1: Place sample with textured/grain surface face-down on abrading paper" style="z-index:2;"/>
+      <img src="../slides/slide_13_s02.png"
+           alt="Step 2: Insert backing foam form over the sample" style="z-index:3;"/>
+      <img src="../slides/slide_13_s03.png"
+           alt="Step 3: Align specimen in holder" style="z-index:4;"/>
+      <img src="../slides/slide_13_s04.png"
+           alt="Step 4: Position holder correctly" style="z-index:5;"/>
+      <img src="../slides/slide_13_s05.png"
+           alt="Step 5: Push backing form and sample downwards" style="z-index:6;"/>
+      <img src="../slides/slide_13_s06.png"
+           alt="Step 6: Secure the specimen in position" style="z-index:7;"/>
+      <img src="../slides/slide_13_s07.png"
+           alt="Final Step: Re-Assemble the specimen holder" style="z-index:8;"/>
+      <img src="../slides/slide_13_s08.png"
+           alt="Bottom view of loaded holder – specimen correctly seated" style="z-index:9;"/>
+
+      <!-- Interactive Step Buttons (PPT onClick triggers) -->
+      <button class="step-btn-overlay" id="sBtn1" aria-label="Step 1: Place sample grain-side down" tabindex="0"></button>
+      <button class="step-btn-overlay" id="sBtn2" aria-label="Step 2: Insert backing form" tabindex="0"></button>
+      <button class="step-btn-overlay" id="sBtn3" aria-label="Step 3: Align specimen" tabindex="0"></button>
+      <button class="step-btn-overlay" id="sBtn4" aria-label="Step 4: Position holder" tabindex="0"></button>
+      <button class="step-btn-overlay" id="sBtn5" aria-label="Step 5: Push backing form downward" tabindex="0"></button>
+      <button class="step-btn-overlay" id="sBtn6" aria-label="Step 6: Secure specimen" tabindex="0"></button>
+      <button class="step-btn-overlay" id="sBtnF" aria-label="Final Step: Re-Assemble holder" tabindex="0"></button>
+      <button class="step-btn-overlay" id="sBtnBV" aria-label="Bottom view of holder" tabindex="0"></button>
+
+      <!-- Step callout label -->
+      <div id="step-callout"></div>
+    </div>
+
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="step12.html" id="btn-prev" aria-label="Previous: Step 12">◀ Back</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter" id="step13-counter">0 / 8 steps viewed</span>
+      <a class="btn-nav btn-next" href="step14.html" id="btn-next" aria-label="Next: Step 14">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
-    new SimStep({
+    /* Step 13 — Interactive mode.
+       Each button click reveals the corresponding image via Fade In (500ms CSS transition).
+       This matches PPT slide 13's 8 interactiveSeq, each with onClick on specific shape
+       and animEffect filter="fade" transition="in" dur="500ms".
+    */
+
+    const stepDefs = [
+      { btnId: 'sBtn1',  imgIndex: 1, label: 'Step 1: Place sample grain-side down on abradant paper' },
+      { btnId: 'sBtn2',  imgIndex: 2, label: 'Step 2: Insert backing foam form over the sample' },
+      { btnId: 'sBtn3',  imgIndex: 3, label: 'Step 3: Align the specimen correctly in the holder' },
+      { btnId: 'sBtn4',  imgIndex: 4, label: 'Step 4: Position the holder in the correct orientation' },
+      { btnId: 'sBtn5',  imgIndex: 5, label: 'Step 5: Push backing form and sample downwards' },
+      { btnId: 'sBtn6',  imgIndex: 6, label: 'Step 6: Secure the specimen firmly in position' },
+      { btnId: 'sBtnF',  imgIndex: 7, label: 'Final Step: Re-Assemble the specimen holder completely' },
+      { btnId: 'sBtnBV', imgIndex: 8, label: 'Bottom view: Verify specimen is correctly seated in holder' },
+    ];
+
+    const sim = new SimStep({
       container: '#clickZone',
-      prevPage:  'step12.html',
-      nextPage:  'step14.html',
+      prevPage: 'step12.html',
+      nextPage: 'step14.html',
+      mode: 'interactive',
+      steps: stepDefs
     });
-  })();
+
+    /* Extra: update progress counter and show callout label on each step click */
+    const callout = document.getElementById('step-callout');
+    const counter = document.getElementById('step13-counter');
+    const viewedSteps = new Set();
+
+    stepDefs.forEach((def, idx) => {
+      const btn = document.getElementById(def.btnId);
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        viewedSteps.add(idx);
+        counter.textContent = `${viewedSteps.size} / 8 steps viewed`;
+
+        // Show callout
+        callout.textContent = def.label;
+        callout.classList.add('visible');
+        clearTimeout(callout._timer);
+        callout._timer = setTimeout(() => callout.classList.remove('visible'), 3500);
+
+        // Update progress bar
+        const pct = (viewedSteps.size / 8) * 100;
+        document.querySelector('.progress-fill').style.width = pct + '%';
+      });
+    });
   </script>
 </body>
 </html>

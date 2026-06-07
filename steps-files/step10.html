@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 10: Prepare Holder"/>
-  <title>Step 10 – Prepare Holder – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 10: Remove Top Plate, Sample Holder & Clamp"/>
+  <title>Step 10 – Remove Top Plate & Holder – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
@@ -14,34 +14,47 @@
 
     <p class="instruction-text">
       <span class="step-badge">Step 10</span>
-      Lift the top plate, remove the sample holder, and remove the clamp for fixing the abrading surface.
+      <strong>1)</strong> Lift the top plate away from the abrading table.
+      <strong>2)</strong> Remove the sample holder for fixing the specimen.
+      <strong>3)</strong> Remove the clamp for fixing the abrading surface.
+      Click the slide to reveal each removal step.
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 10 Frame 1" src="../slides/slide_10_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>
-      <img alt="Step 10 Frame 2" src="../slides/slide_10_s01.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>
-      <img alt="Step 10 Frame 3" src="../slides/slide_10_s02.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>
-      <img alt="Step 10 Frame 4" src="../slides/slide_10_s03.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>    </div>
+    <!--
+      Slide 10 (PPT Slide 10): Remove top plate, sample holder, clamp
+      s00 = machine with top plate in place
+      s01 = top plate lifted away
+      s02 = sample holder removed
+      s03 = clamp removed — full setup complete
+      s04 = next navigation state
+    -->
+    <div class="img-area" id="clickZone" role="button" tabindex="0"
+         aria-label="Click or press Enter to advance animation frame">
+      <img src="../slides/slide_10_s00.png" alt="Martindale apparatus with top plate in position" class="active"/>
+      <img src="../slides/slide_10_s01.png" alt="Step 1: Lift top plate away from abrading table"/>
+      <img src="../slides/slide_10_s02.png" alt="Step 2: Remove sample holder from abrading table"/>
+      <img src="../slides/slide_10_s03.png" alt="Step 3: Remove clamp ring for abrading surface – all parts removed"/>
+      <div class="click-hint">Click to reveal each removal step</div>
+    </div>
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
-
-    <button class="btn-prev" data-href="step9.html">◀ Prev</button>
-    <button class="btn-next" data-href="step11.html">Next ▶</button>
-
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="step9.html" id="btn-prev" aria-label="Previous: Step 9">◀ Back</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter">1 / 4</span>
+      <a class="btn-nav btn-next" href="step11.html" id="btn-next" aria-label="Next: Step 11">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
     new SimStep({
       container: '#clickZone',
-      prevPage:  'step9.html',
-      nextPage:  'step11.html',
+      prevPage: 'step9.html',
+      nextPage: 'step11.html',
+      mode: 'auto'
     });
-  })();
   </script>
 </body>
 </html>

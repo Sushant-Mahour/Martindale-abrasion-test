@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 1: Introduction &amp; Standards"/>
-  <title>Step 1 – Introduction &amp; Standards – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 1: Introduction & Standards"/>
+  <title>Step 1 – Introduction & Standards – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
@@ -15,31 +15,35 @@
     <p class="instruction-text">
       <span class="step-badge">Step 1</span>
       Introduction to the Martindale Abrasion Test and testing Standards (ISO 12947, ASTM D4966).
+      Click the slide to see the standards diagram.
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 1 Frame 1" src="../slides/slide_01_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>
-      <img alt="Step 1 Frame 2" src="../slides/slide_01_s01.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>    </div>
+    <!-- Slide 1: 2 frames — s00 (blank/standards outline), s01 (full slide) -->
+    <div class="img-area" id="clickZone" role="button" tabindex="0"
+         aria-label="Click or press Enter to advance animation frame">
+      <img src="../slides/slide_01_s00.png" alt="Martindale Abrasion Test – blank state" class="active"/>
+      <img src="../slides/slide_01_s01.png" alt="Martindale Abrasion Test – Standards diagram with ISO 12947 and ASTM D4966"/>
+      <div class="click-hint">Click to reveal standards (1 remaining)</div>
+    </div>
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
-
-    <button class="btn-prev" data-href="../index.html">◀ Prev</button>
-    <button class="btn-next" data-href="step2.html">Next ▶</button>
-
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="../index.html" id="btn-prev" aria-label="Previous: Home">◀ Home</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter">1 / 2</span>
+      <a class="btn-nav btn-next" href="step2.html" id="btn-next" aria-label="Next: Step 2">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
     new SimStep({
       container: '#clickZone',
-      prevPage:  '../index.html',
-      nextPage:  'step2.html',
+      prevPage: '../index.html',
+      nextPage: 'step2.html',
+      mode: 'auto'
     });
-  })();
   </script>
 </body>
 </html>

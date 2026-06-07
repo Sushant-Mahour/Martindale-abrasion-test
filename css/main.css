@@ -60,6 +60,8 @@ body {
   box-shadow: var(--shadow);
   border-radius: 4px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── Title Bar ──────────────────────────────────────────── */
@@ -77,351 +79,300 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 0;
 }
 
-/* ── Step Badge ────────────────────────────────────────── */
+/* ── Step Badge ─────────────────────────────────────────── */
 .step-badge {
   display: inline-block;
   font-size: 14px;
-  font-weight: 700;
-  background-color: var(--primary);
-  color: white;
+  font-weight: 600;
+  background: var(--badge-bg);
+  border: 1.5px solid var(--badge-border);
+  color: var(--accent);
   padding: 2px 10px;
-  border-radius: 5px;
-  margin-right: 6px;
-  white-space: nowrap;
+  border-radius: 12px;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
-/* ── Instruction Text ──────────────────────────────────── */
+/* ── Instruction text bar ───────────────────────────────── */
 .instruction-text {
-  position: absolute;
-  top: 50px;
-  left: 10px;
-  font-size找回 its;
-  width: 780px;
+  font-size: 13px;
+  color: var(--text-color);
+  background: #e4edf7;
+  border-bottom: 1px solid #b8cfe0;
+  padding: 6px 14px;
   line-height: 1.5;
-  padding: 4px 0;
+  flex-shrink: 0;
 }
 
-/* ── Image Area (Animation Stage) ──────────────────────── */
+/* ── Image Area (click zone) ─────────────────────────────── */
 .img-area {
-  position: absolute;
-  top: 90px;
-  left: 50px;
-  width: 700px;
-  height: 390px;
+  flex: 1;
+  position: relative;
   overflow: hidden;
-  border-radius: 4px;
+  cursor: pointer;
+  background: #dce5ec;
+  outline: none;
 }
 
+.img-area:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: -3px;
+}
+
+/* All slide images stack absolutely */
 .img-area img {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 700px;
-  height: 390px;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+  transition: opacity 0.5s ease;
   pointer-events: none;
-  user-select: none;
-  -webkit-user-drag: none;
 }
 
-.img-area img.visible {
-  visibility: visible;
+.img-area img.active {
   opacity: 1;
-  transition: opacity 0.45s ease, visibility 0s;
-  pointer-events: auto;
 }
 
-.img-area:focus {
-  outline: 2px dashed var(--primary-light);
+/* ── Step button overlays (for slide 13 interactive buttons) */
+.step-btn-overlay {
+  position: absolute;
+  cursor: pointer;
+  background: transparent;
+  color: transparent;
+  border: none;
+  z-index: 10;
+  user-select: none;
+}
+
+.step-btn-overlay:focus-visible {
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
-/* Simulated image (frame-by-frame slideshow) */
-.sim-img {
+/* ── Click hint overlay ─────────────────────────────────── */
+.click-hint {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 700px;
-  height: 390px;
-  object-fit: contain;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 14px;
+  border-radius: 14px;
   pointer-events: none;
-  user-select: none;
-  -webkit-user-drag: none;
+  transition: opacity var(--transition-med);
+  white-space: nowrap;
+  z-index: 20;
 }
 
-.sim-img.visible {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.45s ease, visibility 0s;
-  pointer-events: auto;
+.click-hint.hidden {
+  opacity: 0;
 }
 
-/* ── Progress Bar ────────────────────────────────────────── */
+/* ── Bottom toolbar ─────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: #d0dce8;
+  border-top: 1px solid #b0c4d8;
+  flex-shrink: 0;
+  gap: 8px;
+  height: 44px;
+}
+
+/* ── Progress bar ─────────────────────────────────────────── */
 .progress-bar {
-  position: absolute;
-  top: 57px;
-  left: 10px;
-  width: calc(100% - 20px);
-  height: 4px;
-  background: #b0c4de;
-  border-radius: 2px;
+  flex: 1;
+  height: 6px;
+  background: #b0c4d8;
+  border-radius: 3px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  width: 0%;
   background: var(--primary);
-  border-radius: 2px;
-  transition: width 0.3s ease;
+  border-radius: 3px;
+  transition: width var(--transition-med);
+  width: 0%;
 }
 
-/* ── Next / Prev Buttons ───────────────────────────────── */
-.btn-next,
-.btn-prev {
-  position: absolute;
-  bottom: 20px;
-  padding: 10px 22px;
-  color: white;
-  font-weight: 700;
-  font-size: 15px;
+/* ── Slide counter ──────────────────────────────────────── */
+.slide-counter {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* ── Navigation buttons ─────────────────────────────────── */
+.btn-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 16px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: background var(--transition-fast);
-  z-index: 20;
+  text-decoration: none;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-prev {
+  background: #fff;
+  color: var(--accent);
+  border: 1.5px solid var(--primary);
+}
+.btn-prev:hover:not(:disabled) {
+  background: var(--badge-bg);
+  transform: translateX(-2px);
 }
 
 .btn-next {
-  right: 20px;
-  background-color: var(--primary);
-  visibility: hidden;
+  background: var(--primary);
+  color: #fff;
+}
+.btn-next:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateX(2px);
+  box-shadow: 0 4px 12px rgba(20, 117, 228, 0.35);
 }
 
-.btn-next.show {
-  visibility: visible;
+.btn-nav:disabled,
+.btn-nav[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.btn-next:hover,
-.btn-next:focus {
-  background-color: var(--primary-dark);
-  outline: 2px solid white;
-  outline-offset: 2px;
-}
-
-.btn-prev {
-  left: 20px;
-  background-color: var(--text-muted);
-}
-
-.btn-prev:hover,
-.btn-prev:focus {
-  background-color: #555;
-  outline: 2px solid white;
-  outline-offset: 2px;
-}
-
-/* ── Observation Log ──────────────────────────────────────── */
-.obs-log {
+/* ── Landing page ────────────────────────────────────────── */
+.skip-link {
   position: absolute;
-  bottom: 20px;
-  left: 10px;
-  width: 400px;
-  min-height: 34px;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: var(--radius);
-  padding: 6px 10px;
-  font-size: 13px;
-  color: #1a3a5c;
-  font-style: italic;
-  visibility: hidden;
-  z-index: 10;
+  left: -9999px;
+  top: 0;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 100;
+  border-radius: 0 0 6px 6px;
 }
-
-.obs-log.show {
-  visibility: visible;
-}
-
-/* ── Click Hint ────────────────────────────────────────── */
-.click-hint {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 13px;
-  color: var(--primary);
-  font-weight: 600;
-  animation: pulse 1.2s ease-in-out infinite;
-  z-index: 10;
-  pointer-events: none;
-  user-select: none;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%     { opacity: 0.25; }
-}
-
-/* ── Slide Counter ────────────────────────────────────── */
-.slide-counter {
-  position: absolute;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 13px;
-  color: #555;
-  font-weight: 600;
-  user-select: none;
-}
-
-/* ── Keyboard Hint Bar ────────────────────────────────── */
-.keyboard-hint {
-  position: absolute;
-  bottom: 0;
+.skip-link:focus {
   left: 0;
-  right: 0;
-  padding: 6px 0;
-  text-align: center;
-  font-size: 11px;
-  color: #777;
-  background: rgba(200, 216, 232, 0.6);
-  user-select: none;
 }
 
-.keyboard-hint kbd {
-  display: inline-block;
-  padding: 1px 5px;
-  border: 1px solid #999;
-  border-radius: 3px;
-  background: #f5f5f5;
-  font-family: monospace;
-  font-size: 11px;
-  margin: 0 2px;
-}
-
-/* ── Landing Page Specifics ────────────────────────────── */
 .apparatus-img {
-  position: absolute;
-  top: 170px;
-  left: 30px;
-  width: 370px;
-  height: auto;
-  max-height: 330px;
+  display: block;
+  max-width: 100%;
+  height: 350px;
   object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  user-select: none;
-  -webkit-user-drag: none;
+  margin: 0 auto;
 }
 
 .info-panel {
-  position: absolute;
-  top: 160px;
-  right: 20px;
-  width: 340px;
+  background: #e4edf7;
+  border-top: 1px solid #b8cfe0;
+  padding: 14px 20px;
 }
 
-.info-panel h3 {
-  font-size: 14px;
+.info-panel h2 {
+  font-size: 15px;
   color: var(--accent);
-  margin-bottom: 5px;
-  margin-top: 14px;
-  font-weight: 700;
-}
-
-.info-panel p,
-.info-panel li {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--text-color);
-  margin-bottom: 4px;
-}
-
-.info-panel ul {
-  padding-left: 18px;
   margin-bottom: 8px;
 }
 
-.standards-badge {
-  display: inline-block;
+.info-panel p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.standards-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.std-badge {
   background: var(--badge-bg);
-  border: 1px solid var(--badge-border);
-  border-radius: 4px;
-  padding: 2px 8px;
+  border: 1.5px solid var(--badge-border);
+  color: var(--accent);
   font-size: 12px;
-  color: #1a73e8;
-  margin: 2px;
   font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
 }
 
-.start-btn {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 12px 28px;
+.btn-start {
+  display: inline-block;
+  width: 180px;
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
   background: var(--primary);
-  color: white;
-  font-size: 16px;
+  color: #fff;
+  font-family: var(--font);
+  font-size: 15px;
   font-weight: 700;
-  border: none;
   border-radius: var(--radius);
-  cursor: pointer;
-  transition: background var(--transition-fast);
-  z-index: 10;
-}
-
-.start-btn:hover,
-.start-btn:focus {
-  background: var(--primary-dark);
-  outline: 2px solid white;
-  outline-offset: 2px;
-}
-
-/* ── Skip to Content (a11y) ───────────────────────────── */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--primary);
-  color: white;
-  padding: 8px 16px;
   text-decoration: none;
-  font-weight: 600;
-  border-radius: 0 0 var(--radius) 0;
-  z-index: 100;
-  transition: top 0.2s;
+  letter-spacing: 0.04em;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.skip-link:focus {
-  top: 0;
+.btn-start:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 14px rgba(20, 117, 228, 0.4);
 }
 
-/* ── Responsive Scaling ────────────────────────────────── */
-@media (max-width: 850px) {
+/* ── Observation log ────────────────────────────────────── */
+.obs-log {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid #b8cfe0;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #444;
+  max-width: 180px;
+  pointer-events: none;
+  z-index: 15;
+  display: none;
+}
+
+/* ── Fade-in animation ───────────────────────────────────── */
+@keyframes fadeInSlide {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.simulation-container {
+  animation: fadeInSlide 0.35s ease both;
+}
+
+/* ── Responsive fallback ─────────────────────────────────── */
+@media (max-width: 840px) {
+  body { padding: 10px; }
   .simulation-container {
-    transform: scale(0.95);
-    transform-origin: top center;
+    width: 100%;
+    height: auto;
+    min-height: 520px;
   }
-}
-
-@media (max-width: 780px) {
-  .simulation-container {
-    transform: scale(0.85);
-    transform-origin: top center;
-  }
-}
-
-@media (max-width: 480px) {
-  .simulation-container {
-    transform: scale(0.6);
-    transform-origin: top center;
-  }
+  .apparatus-img { height: 260px; }
 }

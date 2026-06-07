@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 12: Fix Specimen"/>
-  <title>Step 12 – Fix Specimen – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 12: Fixing Specimen in Holder"/>
+  <title>Step 12 – Fixing Specimen in Holder – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
@@ -14,31 +14,39 @@
 
     <p class="instruction-text">
       <span class="step-badge">Step 12</span>
-      Follow the 6-step process to fix the specimen correctly in the holder (grain side facing down).
+      <strong>Fixing of Specimen in Holder</strong> — The following steps show
+      how to load the cut leather specimens into the specimen holders step by step.
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 12 Frame 1" src="../slides/slide_12_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>    </div>
+    <!--
+      Slide 12 (PPT Slide 12): Section break — "Fixing of Specimen in holder"
+      s00 = section title text
+      s01 = decorative/transition state
+    -->
+    <div class="img-area" id="clickZone" role="button" tabindex="0"
+         aria-label="Click or press Enter to continue">
+      <img src="../slides/slide_12_s00.png" alt="Fixing of Specimen in Holder – section title" class="active"/>
+      <div class="click-hint hidden">Section slide – click Next to continue</div>
+    </div>
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
-
-    <button class="btn-prev" data-href="step11.html">◀ Prev</button>
-    <button class="btn-next" data-href="step13.html">Next ▶</button>
-
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="step11.html" id="btn-prev" aria-label="Previous: Step 11">◀ Back</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter">1 / 1</span>
+      <a class="btn-nav btn-next" href="step13.html" id="btn-next" aria-label="Next: Step 13">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
     new SimStep({
       container: '#clickZone',
-      prevPage:  'step11.html',
-      nextPage:  'step13.html',
+      prevPage: 'step11.html',
+      nextPage: 'step13.html',
+      mode: 'sequential'
     });
-  })();
   </script>
 </body>
 </html>

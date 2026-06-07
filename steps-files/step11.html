@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 11: Mount Felt &amp; Paper"/>
-  <title>Step 11 – Mount Felt &amp; Paper – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 11: Place Felt, Abradant Paper & Fix Clamping Rings"/>
+  <title>Step 11 – Mount Felt & Paper – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
@@ -14,35 +14,49 @@
 
     <p class="instruction-text">
       <span class="step-badge">Step 11</span>
-      Place felt on each table, then abradant paper over felt, then fix using clamping rings.
+      Click each step to reveal it:
+      <strong>1)</strong> Place felt on each abrading table.
+      <strong>2)</strong> Place abradant paper over the felt.
+      <strong>3)</strong> Fix both using the abradant clamping rings.
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 11 Frame 1" src="../slides/slide_11_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>
-      <img alt="Step 11 Frame 2" src="../slides/slide_11_s01.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>
-      <img alt="Step 11 Frame 3" src="../slides/slide_11_s02.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>
-      <img alt="Step 11 Frame 4" src="../slides/slide_11_s03.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>
-      <img alt="Step 11 Frame 5" src="../slides/slide_11_s04.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>    </div>
+    <!--
+      Slide 11 (PPT Slide 11): 4 click-triggered Fade-In sequences.
+      Each click reveals the next layer on the abrading table.
+      s00 = empty abrading table (initial)
+      s01 = felt placed on table (Click 1 → Fade In, 500ms)
+      s02 = abradant paper placed on felt (Click 2 → Fade In)
+      s03 = clamping ring fixed (Click 3 → Fade In)
+      s04 = complete assembly (Click 4 → Fade In, final)
+    -->
+    <div class="img-area" id="clickZone" role="button" tabindex="0"
+         aria-label="Click to reveal each layer of the abrading table setup">
+      <img src="../slides/slide_11_s00.png" alt="Abrading table – empty initial state" class="active"/>
+      <img src="../slides/slide_11_s01.png" alt="Step 1: Place abradant felt on each abrading table (Fade In)"/>
+      <img src="../slides/slide_11_s02.png" alt="Step 2: Place abradant paper over the felt on each table (Fade In)"/>
+      <img src="../slides/slide_11_s03.png" alt="Step 3: Fix felt and paper using abradant clamping rings (Fade In)"/>
+      <img src="../slides/slide_11_s04.png" alt="Complete: felt, paper and clamping rings all fixed – abrading surface ready"/>
+      <div class="click-hint">Click to place each layer (4 steps)</div>
+    </div>
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
-
-    <button class="btn-prev" data-href="step10.html">◀ Prev</button>
-    <button class="btn-next" data-href="step12.html">Next ▶</button>
-
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="step10.html" id="btn-prev" aria-label="Previous: Step 10">◀ Back</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter">1 / 5</span>
+      <a class="btn-nav btn-next" href="step12.html" id="btn-next" aria-label="Next: Step 12">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
     new SimStep({
       container: '#clickZone',
-      prevPage:  'step10.html',
-      nextPage:  'step12.html',
+      prevPage: 'step10.html',
+      nextPage: 'step12.html',
+      mode: 'sequential'
     });
-  })();
   </script>
 </body>
 </html>

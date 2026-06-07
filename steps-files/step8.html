@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 8: Apparatus Setup"/>
-  <title>Step 8 – Apparatus Setup – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 8: Machine Set-Up Section"/>
+  <title>Step 8 – Machine Set-Up – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
@@ -14,31 +14,39 @@
 
     <p class="instruction-text">
       <span class="step-badge">Step 8</span>
-      Overview of the Martindale Apparatus machine set-up procedure.
+      <strong>Machine Set-Up</strong> — The following steps describe how to set up
+      the Martindale apparatus before running the test.
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 8 Frame 1" src="../slides/slide_08_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>    </div>
+    <!--
+      Slide 8 (PPT Slide 8): Section break — "Machine Set-Up"
+      s00 = blank/title state
+      s01 = full title slide with machine image
+    -->
+    <div class="img-area" id="clickZone" role="button" tabindex="0"
+         aria-label="Click or press Enter to continue">
+      <img src="../slides/slide_08_s00.png" alt="Machine Set-Up – section title" class="active"/>
+      <div class="click-hint">Click to continue</div>
+    </div>
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
-
-    <button class="btn-prev" data-href="step7.html">◀ Prev</button>
-    <button class="btn-next" data-href="step9.html">Next ▶</button>
-
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="step7.html" id="btn-prev" aria-label="Previous: Step 7">◀ Back</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter">1 / 2</span>
+      <a class="btn-nav btn-next" href="step9.html" id="btn-next" aria-label="Next: Step 9">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
     new SimStep({
       container: '#clickZone',
-      prevPage:  'step7.html',
-      nextPage:  'step9.html',
+      prevPage: 'step7.html',
+      nextPage: 'step9.html',
+      mode: 'sequential'
     });
-  })();
   </script>
 </body>
 </html>

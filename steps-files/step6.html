@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Martindale Abrasion Test Virtual Lab - Step 6: Cut 38 mm Specimen"/>
-  <title>Step 6 – Cut 38 mm Specimen – Martindale VLab</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta name="description" content="Martindale Abrasion Test Virtual Lab – Step 6: Cut Leather Specimen (38 mm)"/>
+  <title>Step 6 – Cut Leather Specimen – Martindale VLab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
+
 </head>
 <body>
   <div class="simulation-container">
@@ -14,32 +15,125 @@
 
     <p class="instruction-text">
       <span class="step-badge">Step 6</span>
-      Place the 38 mm cutter on the leather swatch and rotate the wheel to cut the specimen disc.
+      Place the <strong>38 mm diameter cutter</strong> on the leather swatch.
+      Rotate the wheel to cut three circular specimens of 38 mm diameter.
+      Click the slide to see each action.
     </p>
 
-    <div class="img-area" id="clickZone" role="button" tabindex="0" aria-label="Click or press Enter to advance animation frame">
-      <img alt="Step 6 Frame 1" src="../slides/slide_06_s00.png" class="sim-img visible" style="position:absolute;top:0;left:0;opacity:1;"/>
-      <img alt="Step 6 Frame 2" src="../slides/slide_06_s01.png" class="sim-img" style="position:absolute;top:0;left:0;opacity:0;"/>    </div>
+    <!--
+      s00 = leather swatch only (no cutter visible)
+      s01 = full slide: cutter (top-right) + rotate-wheel arrow (on sample) + text box
+    -->
+    <div class="img-area" id="clickZone" role="button" tabindex="0"
+         aria-label="Click or press Enter to advance animation frame">
+      <img src="../slides/slide_06_s00.png" alt="38mm cutter placed on leather swatch" class="active"/>
+      <img src="../slides/slide_06_s01.png" alt="Rotating the wheel to cut 38mm leather specimen – final result"/>
+      <!-- Frame 3: Cutter drops onto the sample -->
+      <img id="frame3-trigger" src="../slides/slide_06_s01.png" alt="Cutter drops onto sample"/>
 
-    <div class="click-hint" id="hint">▶ Click slide to advance</div>
-    <div class="slide-counter" id="counter"></div>
-    <div class="obs-log" id="obsLog"></div>
+      <!-- Animated transparent cutter for frame 3 (wrapped to hide from sim-engine) -->
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50;">
+        <img id="animated-cutter" src="../slides/animated_cutter.png" alt="" style="position:absolute; display:none;"/>
+      </div>
 
-    <button class="btn-prev" data-href="step5.html">◀ Prev</button>
-    <button class="btn-next" data-href="step7.html">Next ▶</button>
+      <div class="click-hint">Click to reveal cutting action</div>
+    </div>
 
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div class="toolbar">
+      <a class="btn-nav btn-prev" href="step5.html" id="btn-prev" aria-label="Previous: Step 5">◀ Back</a>
+      <div class="progress-bar" aria-hidden="true">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+      <span class="slide-counter">1 / 2</span>
+      <a class="btn-nav btn-next" href="step7.html" id="btn-next" aria-label="Next: Step 7">Next ▶</a>
+    </div>
   </div>
 
   <script src="../js/sim-engine.js"></script>
   <script>
-  (function () {
     new SimStep({
       container: '#clickZone',
-      prevPage:  'step5.html',
-      nextPage:  'step7.html',
+      prevPage: 'step5.html',
+      nextPage: 'step7.html',
+      mode: 'auto'
     });
-  })();
+
+    // ── Cutter Drop Animation for Frame 3 ─────────────────────────────────────
+    const clickZone = document.getElementById('clickZone');
+    const frame3Elem = document.getElementById('frame3-trigger');
+    const animatedCutter = document.getElementById('animated-cutter');
+
+    // Dimensions to match the original red cutter in the top right
+    const CUTTER = { w: 205, h: 330 };
+    // Target centre adjusted downwards so the top of the cutter lands below the rotate arrow
+    const TARGET = { cx: 530,  cy: 620 };
+
+    function getRenderRect() {
+      const zr    = clickZone.getBoundingClientRect();
+      const imgAR = 1920 / 1080;
+      const conAR = zr.width / zr.height;
+      let rW, rH, oX, oY;
+      if (conAR > imgAR) {
+        rH = zr.height;  rW = rH * imgAR;
+        oX = (zr.width - rW) / 2;  oY = 0;
+      } else {
+        rW = zr.width;   rH = rW / imgAR;
+        oX = 0;          oY = (zr.height - rH) / 2;
+      }
+      return { rW, rH, oX, oY };
+    }
+
+    function dropCutter() {
+      const { rW, rH, oX, oY } = getRenderRect();
+      const sc = rW / 1920;
+
+      const cW = Math.round(CUTTER.w * sc);
+      const cH = Math.round(CUTTER.h * sc);
+
+      animatedCutter.style.width  = cW + 'px';
+      animatedCutter.style.height = cH + 'px';
+      animatedCutter.style.opacity = '1';
+
+      // Final landing position (centred on TARGET)
+      const endX = oX + (TARGET.cx - CUTTER.w / 2) * sc;
+      const endY = oY + (TARGET.cy - CUTTER.h / 2) * sc;
+
+      // Start position (dropping from top)
+      const startX = endX;
+      const startY = endY - 200;
+
+      animatedCutter.style.left    = startX + 'px';
+      animatedCutter.style.top     = startY + 'px';
+      animatedCutter.style.display = 'block';
+
+      const DURATION = 900; 
+      const t0 = performance.now();
+
+      function step(now) {
+        const t    = Math.min((now - t0) / DURATION, 1);
+        const ease = 1 - Math.pow(1 - t, 3);   // cubic ease-out
+
+        animatedCutter.style.top = (startY + (endY - startY) * ease) + 'px';
+
+        if (t < 1) {
+          requestAnimationFrame(step);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function resetCutter() {
+      animatedCutter.style.display = 'none';
+    }
+
+    new MutationObserver(() => {
+      if (frame3Elem.classList.contains('active')) {
+        dropCutter();
+      } else {
+        resetCutter();
+      }
+    }).observe(frame3Elem, { attributes: true, attributeFilter: ['class'] });
+
   </script>
 </body>
 </html>
